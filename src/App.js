@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import "./App.css";
 
-const TABLE_LENGTH = 18;
+const TABLE_LENGTH = +getQueryParams("size") || 18;
 const COLORS = [
   "orange",
   "green",
   "purple",
 ];
+
+
 
 const getColorbyId = id => (id >= COLORS.length) ? "disabled" : COLORS[id];
 
@@ -39,5 +41,12 @@ function TodoList() {
     </div>
   )
 }
+
+function getQueryParams( params ) {
+  let href = window.location.href;
+  let reg = new RegExp( '[?&]' + params + '=([^&#]*)', 'i' );
+  let queryString = reg.exec(href);
+  return queryString ? queryString[1] : null;
+};
 
 export default TodoList;
